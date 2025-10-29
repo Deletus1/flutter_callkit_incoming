@@ -367,6 +367,18 @@ public class SwiftFlutterCallkitIncomingPlugin: NSObject, FlutterPlugin, CXProvi
             self.callManager.muteCall(call: call, isMuted: isMuted)
         }
     }
+
+    @objc public func unmuteCall(_ callId: String, isMuted: Bool) {
+        guard let callId = UUID(uuidString: callId),
+              let call = self.callManager.callWithUUID(uuid: callId) else {
+            return
+        }
+        if call.isMuted == isMuted {
+            self.sendMuteEvent(callId.uuidString, isMuted)
+        } else {
+            self.callManager.unmuteCall(call: call, isMuted: isMuted)
+        }
+    }
     
     @objc public func holdCall(_ callId: String, onHold: Bool) {
         guard let callId = UUID(uuidString: callId),
