@@ -12,10 +12,12 @@ import 'entities/entities.dart';
 /// * callConnected(dynamic)
 
 class FlutterCallkitIncoming {
-  static const MethodChannel _channel =
-      MethodChannel('flutter_callkit_incoming');
-  static const EventChannel _eventChannel =
-      EventChannel('flutter_callkit_incoming_events');
+  static const MethodChannel _channel = MethodChannel(
+    'flutter_callkit_incoming',
+  );
+  static const EventChannel _eventChannel = EventChannel(
+    'flutter_callkit_incoming_events',
+  );
 
   /// Listen to event callback from [FlutterCallkitIncoming].
   ///
@@ -67,6 +69,10 @@ class FlutterCallkitIncoming {
   /// On Android, Nothing(only callback event listener).
   static Future muteCall(String id, {bool isMuted = true}) async {
     await _channel.invokeMethod("muteCall", {'id': id, 'isMuted': isMuted});
+  }
+
+  static Future unmuteCall(String id, {bool isMuted = false}) async {
+    await _channel.invokeMethod("unmuteCall", {'id': id, 'isMuted': isMuted});
   }
 
   /// Get Callkit Mic Status (muted/unmuted).

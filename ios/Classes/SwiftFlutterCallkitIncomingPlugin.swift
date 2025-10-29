@@ -151,6 +151,18 @@ public class SwiftFlutterCallkitIncomingPlugin: NSObject, FlutterPlugin, CXProvi
             self.muteCall(callId, isMuted: isMuted)
             result(true)
             break
+
+        case "unmuteCall":
+            guard let args = call.arguments as? [String: Any] ,
+                  let callId = args["id"] as? String,
+                  let isMuted = args["isMuted"] as? Bool else {
+                result(true)
+                return
+            }
+            
+            self.unmuteCall(callId, isMuted: isMuted)
+            result(true)
+            break
         case "isMuted":
             guard let args = call.arguments as? [String: Any] ,
                   let callId = args["id"] as? String else{

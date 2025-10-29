@@ -248,6 +248,18 @@ class FlutterCallkitIncomingPlugin : FlutterPlugin, MethodCallHandler, ActivityA
                     result.success(true)
                 }
 
+                "unmuteCall" -> {
+                    val map = buildMap {
+                        val args = call.arguments
+                        if (args is Map<*, *>) {
+                            putAll(args as Map<String, Any>)
+                        }
+                    }
+                    sendEvent(CallkitConstants.ACTION_CALL_TOGGLE_MUTE, map)
+
+                    result.success(true)
+                }
+
                 "holdCall" -> {
                     val map = buildMap {
                         val args = call.arguments
